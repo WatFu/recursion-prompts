@@ -76,13 +76,15 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
-  if(x === y) {
+  if(x === y -1 || x - 1 === y || x === y) {
     return [];
-  } else if (x > y) {
-    return range(y, x)
-  } else {
-    var res = range(x, y - 1);
+  } else if (x < y) {
+    var res = range(x, y - 1)
     res.push(y - 1)
+    return res
+  } else {
+    var res = range(x, y + 1);
+    res.push(y + 1)
     return res
   }
 };
