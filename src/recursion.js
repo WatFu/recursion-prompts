@@ -63,7 +63,7 @@ var isEven = function(n) {
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
-var sumBelow = function(n) { 
+var sumBelow = function(n) {
   if(n === 0) {
     return 0
   } else if(n > 0) {
@@ -161,9 +161,9 @@ var modulo = function(x, y) {
     return -modulo(-x,-y)
     }
   } else if(x < y) {
-    return x  
+    return x
   } else if(x === y) {
-    return 0  
+    return 0
   } else {
     return modulo(x-y,y)
   }
@@ -179,13 +179,13 @@ var multiply = function(x, y) {
   } else if(y === 1) {
     return x
   } else if(x < 0 && y > 0) {
-    return -multiply(-x, y) 
+    return -multiply(-x, y)
   } else if(x > 0 && y < 0) {
     return -multiply(x,-y)
   } else if(x < 0 && y < 0) {
     return multiply(-x,-y)
   } else {
-    return x + multiply(x,y - 1)  
+    return x + multiply(x,y - 1)
   }
 };
 
@@ -196,7 +196,7 @@ var divide = function(x, y) {
     if(x === 0) {
       return NaN
     } else {
-      return Infinity  
+      return Infinity
     }
   } else if (x === 0) {
     return 0
@@ -350,13 +350,16 @@ var countKeysInObj = function(obj, key) {
   if(Object.keys(obj).length === 0 || typeof obj !== 'object') {
     return 0
   } else {
+    var res = 0;
     for(var innerKey in obj) {
-      var res = countKeysInObj(obj[innerKey], key);
-      if(innerKey.toString() == key) {
+      res += countKeysInObj(obj[innerKey], key);
+      console.log(obj[innerKey])
+      if(innerKey.toString() === key) {
         res++;
+        console.log(res)
       }
     }
-  return res
+    return res
   }
 };
 
@@ -365,6 +368,18 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
 var countValuesInObj = function(obj, value) {
+  if(Object.keys(obj).length === 0 || typeof obj !== 'object') {
+    return 0
+  } else {
+    var res = 0;
+    for(var innerKey in obj) {
+      res += countValuesInObj(obj[innerKey], value);
+      if(obj[innerKey].toString() === value) {
+        res++;
+      }
+    }
+    return res
+  }
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
