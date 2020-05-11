@@ -411,8 +411,8 @@ var fibonacci = function(n) {
     return [0, 1]
   } else {
     var res = fibonacci(n - 1);
-    res.push(prev[prev.length - 1] + prev[prev.length - 2]);
-    return prev
+    res.push(res[res.length - 1] + res[res.length - 2]);
+    return res
   }
 };
 
@@ -422,17 +422,40 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+  if(n < 0) {
+    return null
+  } else if(n === 1 || n === 2) {
+    return 1
+  } else {
+    return nthFibo(n - 1) + nthFibo(n - 2)
+  }
 };
 
 // 27. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function(array) {
+  if(typeof array === 'object') {
+    for(var i = 0; i < array.length; i++) {
+      array[i] = capitalizeWords(array[i]);
+    }
+    return array
+  } else {
+    return array.toUpperCase();
+  }
 };
 
 // 28. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car','poop','banana']); // ['Car','Poop','Banana']
 var capitalizeFirst = function(array) {
+  if(typeof array === 'object') {
+    for(var i = 0; i < array.length; i++) {
+      array[i] = capitalizeFirst(array[i]);
+    }
+    return array
+  } else {
+    return array[0].toUpperCase() + array.slice(1,);
+  }
 };
 
 // 29. Return the sum of all even numbers in an object containing nested objects.
@@ -445,6 +468,18 @@ var capitalizeFirst = function(array) {
 // };
 // nestedEvenSum(obj1); // 10
 var nestedEvenSum = function(obj) {
+  if(Object.keys(obj) === 0 || typeof obj !== 'object') {
+    return 0
+  } else {
+    var res = 0;
+    for(var innerKey in obj) {
+      res += nestedEvenSum(obj[innerKey])
+      if(typeof obj[innerKey] === 'number' && obj[innerKey]%2 === 0) {
+        res += obj[innerKey]
+      }
+    }
+    return res
+  }
 };
 
 // 30. Flatten an array containing nested arrays.
