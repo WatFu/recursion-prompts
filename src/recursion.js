@@ -385,6 +385,17 @@ var countValuesInObj = function(obj, value) {
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 var replaceKeysInObj = function(obj, oldKey, newKey) {
+  if(Object.keys(obj).length === 0 || typeof obj !== 'object') {
+    return null
+  }
+  for(var innerKey in obj) {
+    replaceKeysInObj(obj[innerKey], oldKey, newKey);
+    if(innerKey === oldKey) {
+      obj[newKey] = obj[oldKey]
+      delete obj[oldKey]
+    }
+  }
+  return obj
 };
 
 // 25. Get the first n Fibonacci numbers. In the Fibonacci sequence, each subsequent
@@ -393,6 +404,16 @@ var replaceKeysInObj = function(obj, oldKey, newKey) {
 // fibonacci(5); // [0,1,1,2,3,5]
 // Note: The 0 is not counted.
 var fibonacci = function(n) {
+  if(n < 1) {
+    return null
+  }
+  if(n === 1) {
+    return [0, 1]
+  } else {
+    var res = fibonacci(n - 1);
+    res.push(prev[prev.length - 1] + prev[prev.length - 2]);
+    return prev
+  }
 };
 
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
